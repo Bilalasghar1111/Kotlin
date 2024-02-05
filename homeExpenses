@@ -1,0 +1,56 @@
+import java.util.Scanner
+
+data class Expense(val name: String, val amount: Double)
+
+class ExpenseManager {
+    private val expenses = mutableListOf<Expense>()
+
+    fun addExpense(name: String, amount: Double) {
+        expenses.add(Expense(name, amount))
+        println("Expense added successfully.")
+    }
+
+    fun viewExpenses() {
+        if (expenses.isEmpty()) {
+            println("No expenses recorded.")
+        } else {
+            println("Expenses:")
+            expenses.forEach { println("${it.name}: ${it.amount}") }
+        }
+    }
+}
+
+fun main() {
+    val scanner = Scanner(System.`in`)
+    val expenseManager = ExpenseManager()
+
+    while (true) {
+        println("\nHouse Expense Manager Menu:")
+        println("1. Add Expense")
+        println("2. View Expenses")
+        println("3. Exit")
+
+        print("Enter your choice: ")
+        when (scanner.nextInt()) {
+            1 -> {
+                print("Enter expense name: ")
+                val name = scanner.next()
+
+                print("Enter expense amount: ")
+                val amount = scanner.nextDouble()
+
+                expenseManager.addExpense(name, amount)
+            }
+            2 -> {
+                expenseManager.viewExpenses()
+            }
+            3 -> {
+                println("Exiting the Expense Manager. Thank you!")
+                return
+            }
+            else -> {
+                println("Invalid choice. Please enter a valid option.")
+            }
+        }
+    }
+}
